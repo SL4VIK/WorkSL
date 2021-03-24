@@ -20,7 +20,7 @@ class AuthController extends Controller
             'email' => $request->input('email'),
             'password' =>Hash::make($request->input('password')),
         ]);
-
+        $user->assignRole('user');
         return $user;
     }
 
@@ -78,5 +78,12 @@ class AuthController extends Controller
                 $user,
             ], Response::HTTP_OK);
         }
+    }
+    public function test1(){
+        return response(['message' => 'Это видит только admin и user']);
+    }
+
+    public function test2(){
+        return response(['message' => 'Это видит только admin']);
     }
 }

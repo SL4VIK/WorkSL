@@ -26,3 +26,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [\App\Http\Controllers\AuthController::class, 'logout']);
     Route::put('update', [\App\Http\Controllers\AuthController::class, 'Update']);
 });
+
+Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
+    Route::get('userPerm', [\App\Http\Controllers\AuthController::class, 'test2']);
+});
+
+Route::group(['middleware' => ['auth:sanctum', 'role:user|admin']], function () {
+    Route::get('adminPerm', [\App\Http\Controllers\AuthController::class, 'test1']);
+
+
+});

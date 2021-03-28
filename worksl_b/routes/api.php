@@ -44,6 +44,7 @@ Route::post('worktime',[\App\Http\Controllers\WorktimeController::class, 'Workti
 
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::post('worktime',[\App\Http\Controllers\WorktimeController::class, 'WorktimeSave']);
     Route::get('user', [\App\Http\Controllers\AuthController::class, 'user']);
     Route::post('logout', [\App\Http\Controllers\AuthController::class, 'logout']);
     Route::put('update', [\App\Http\Controllers\AuthController::class, 'Update']);

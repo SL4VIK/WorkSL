@@ -2,23 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuthRequests\RegisterPostRequest;
+use Cookie;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Facades\Validator;
-
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
-    public function register(Request $request){
+    public function register(RegisterPostRequest $request){
         $user = User::create([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
             'email' => $request->input('email'),
-            'password' =>Hash::make($request->input('password')),
+            'password' => Hash::make($request->input('password')),
         ]);
         $user->assignRole('user');
         return $user;
@@ -46,13 +45,16 @@ class AuthController extends Controller
     public function user(){
         return Auth::user();
     }
-    public function logout(){
+
+    public function logout(Request $request)
+    {
         $cookie = Cookie::forget('jwt');
 
-         return response([
-             'message' => 'Success'
-         ])->withCookie($cookie);
+        return response([
+            'message' => 'Success'
+        ])->withCookie($cookie);
     }
+
     public function Update(Request $request)
     {
         $user = Auth::user();

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\WorktimeModel;
+use http\Message;
 use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Support\Facades\Auth;
@@ -20,25 +21,30 @@ class WorktimeController extends Controller
         }
         return response()->json($worktime,200);
     }
-    public function WorktimeSave(Request $req) {
-        $rules = [
-//            'name' => 'required|min:1',
-//            'address' => 'required|min:1',
-        ];
-        $validator = Validator::make($req->all(), $rules);
-        if($validator->fails()){
-            return response()->json($validator->errors(), 400);
-        }
-
-        return Auth::user()->getAuthIdentifier();
-        $user = auth()->user();
-        return  $user;
+    public function WorktimeSave() {
+//        $rules = [
+////            'name' => 'required|min:1',
+////            'address' => 'required|min:1',
+//        ];
+//        $validator = Validator::make($req->all(), $rules);
+//        if($validator->fails()){
+//            return response()->json($validator->errors(), 400);
+//        }
+        $users_id = Auth::user()->getAuthIdentifier();
         $date = date('Y-m-d');
-        if($this->IsIsset($users_id, $date )){
-            return response(['message' => 'that container already exist in house']);
-            $worktime = WorktimeModel::create($req->all());
+        if($this->IfIsset($users_id, $date )){
+            return response(['message' => 'that worktime already exist']);
+
+        }else{
+            $worktime = WorktimeModel::create([
+                'date' => $date,
+//                'time' => $req->input('time'),
+//                'rest' => $req->input('rest'),
+                'users_id' => Auth::user()->getAuthIdentifier(),
+                ]);
             return response()->json($worktime,201);
-    }}
+        }
+    }
 
     public function WorktimeEdit(Request $req, $worktime_id) {
         $rules = [
@@ -66,11 +72,29 @@ class WorktimeController extends Controller
         $worktime->delete();
         return response()->json('Deleted',204);
     }
-    private function IsIsset($users_id, $date): bool {
+    private function IfIsset($users_id, $date): bool {
         $arr = WorktimeModel::where('users_id', $users_id)->where('date', $date)->get();
         if(isset($arr[0])){
             return true;
         }
         return false;
     }
+    public function TimeCalculate(){
+        $users_id = Auth::user()->getAuthIdentifier();
+        $date = date('Y-m-d');
+
+        $worktime = WorktimeModel::where('users_id', $users_id)
+            ->where('date', $date)
+            ->get('worktime_id');
+        if(!isset($worktime[0])){
+            return response(['Message' => $this->WorktimeSave()]);
+        }else{
+            $time = WorktimeModel::find($worktime[0]->worktime_id);
+            $time-> time = $time->time + 1;
+            $time->save();
+        }
+
+        return response()->json('Updated',200);
+    }
+
 }

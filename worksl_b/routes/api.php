@@ -23,28 +23,30 @@ Route::post('login', [\App\Http\Controllers\AuthController::class, 'login']);
 
 
 
-//Route::get('companies',[\App\Http\Controllers\CompanyController::class, 'Companies']);
-//Route::get('company/{company_id}',[\App\Http\Controllers\CompanyController::class, 'CompanyById']);
-//Route::post('company',[\App\Http\Controllers\CompanyController::class, 'CompanySave']);
-//Route::put('company/{company_id}',[\App\Http\Controllers\CompanyController::class, 'CompanyEdit']);
-//Route::delete('company/{company_id}',[\App\Http\Controllers\CompanyController::class, 'CompanyDelete']);
-////Route::get('companyuser/{company_id}',[\App\Http\Controllers\CompanyController::class, 'CompanyUser']);
-//Route::get('salary',[\App\Http\Controllers\SalaryController::class, 'Salary']);
-//Route::get('salary/{salary_id}',[\App\Http\Controllers\SalaryController::class, 'SalaryById']);
-//Route::post('salary',[\App\Http\Controllers\SalaryController::class, 'SalarySave']);
-//Route::put('salary/{salary_id}',[\App\Http\Controllers\SalaryController::class, 'SalaryEdit']);
-//Route::delete('salary/{salary_id}',[\App\Http\Controllers\SalaryController::class, 'SalaryDelete']);
-//
-//Route::get('worktime',[\App\Http\Controllers\WorktimeController::class, 'Worktime']);
-//Route::get('worktime/{worktime_id}',[\App\Http\Controllers\WorktimeController::class, 'WorktimeById']);
-Route::post('worktime',[\App\Http\Controllers\WorktimeController::class, 'WorktimeSave']);
-//Route::put('worktime/{worktime_id}',[\App\Http\Controllers\WorktimeController::class, 'WorktimeEdit']);
-//Route::delete('worktime/{worktime_id}',[\App\Http\Controllers\WorktimeController::class, 'WorktimeDelete']);
+Route::get('companies',[\App\Http\Controllers\CompanyController::class, 'Companies']);
+Route::get('company/{company_id}',[\App\Http\Controllers\CompanyController::class, 'CompanyById']);
+Route::post('company',[\App\Http\Controllers\CompanyController::class, 'CompanySave']);
+Route::put('company/{company_id}',[\App\Http\Controllers\CompanyController::class, 'CompanyEdit']);
+Route::delete('company/{company_id}',[\App\Http\Controllers\CompanyController::class, 'CompanyDelete']);
+//Route::get('companyuser/{company_id}',[\App\Http\Controllers\CompanyController::class, 'CompanyUser']);
+Route::get('salary',[\App\Http\Controllers\SalaryController::class, 'Salary']);
+Route::get('salary/{salary_id}',[\App\Http\Controllers\SalaryController::class, 'SalaryById']);
+Route::post('salary',[\App\Http\Controllers\SalaryController::class, 'SalarySave']);
+Route::put('salary/{salary_id}',[\App\Http\Controllers\SalaryController::class, 'SalaryEdit']);
+Route::delete('salary/{salary_id}',[\App\Http\Controllers\SalaryController::class, 'SalaryDelete']);
+
+Route::get('worktime',[\App\Http\Controllers\WorktimeController::class, 'Worktime']);
+Route::get('worktime/{worktime_id}',[\App\Http\Controllers\WorktimeController::class, 'WorktimeById']);
+//Route::post('worktime',[\App\Http\Controllers\WorktimeController::class, 'WorktimeSave']);
+Route::put('worktime/{worktime_id}',[\App\Http\Controllers\WorktimeController::class, 'WorktimeEdit']);
+Route::delete('worktime/{worktime_id}',[\App\Http\Controllers\WorktimeController::class, 'WorktimeDelete']);
 
 
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::post('timer',[\App\Http\Controllers\BussinesLogicController::class, 'Timer']);
     Route::post('worktime',[\App\Http\Controllers\WorktimeController::class, 'WorktimeSave']);
+    Route::put('timecalculate',[\App\Http\Controllers\WorktimeController::class, 'TimeCalculate']);
     Route::get('user', [\App\Http\Controllers\AuthController::class, 'user']);
     Route::post('logout', [\App\Http\Controllers\AuthController::class, 'logout']);
     Route::put('update', [\App\Http\Controllers\AuthController::class, 'Update']);

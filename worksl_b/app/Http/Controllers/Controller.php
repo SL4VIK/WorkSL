@@ -13,7 +13,9 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    protected function authenticatedModeratorID(){
-        return Auth::user()->getAuthIdentifier();
+    public static function GetMail(){
+        $userMail = Auth::user()->getAuthIdentifier();
+        $userMail = User::find($userMail);
+        return $userMail->email;
     }
 }

@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,12 +45,22 @@ Route::delete('worktime/{worktime_id}',[\App\Http\Controllers\WorktimeController
 
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('timer',[\App\Http\Controllers\BussinesLogicController::class, 'Timer']);
+    Route::post('salary',[\App\Http\Controllers\SalaryController::class, 'SalarySave']);
     Route::post('worktime',[\App\Http\Controllers\WorktimeController::class, 'WorktimeSave']);
     Route::put('timecalculate',[\App\Http\Controllers\WorktimeController::class, 'TimeCalculate']);
     Route::get('user', [\App\Http\Controllers\AuthController::class, 'user']);
     Route::post('logout', [\App\Http\Controllers\AuthController::class, 'logout']);
     Route::put('update', [\App\Http\Controllers\AuthController::class, 'Update']);
+
+    Route::get('/send-mail', function(){
+        $details = [
+            'title' =>'Its time to have rest',
+            'body' =>'You  are working to long',
+        ];
+    Mail::to('termenator2001@gmail.com')->send(new \App\Mail\WorkMail($details));
+    echo 'Email has been sent';
+    });
+
 });
 
 //Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {

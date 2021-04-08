@@ -1,21 +1,48 @@
-import React, { Component } from 'react'
-const Reg = () => {
-    const [name, setName] = useState('');
+import React, {useState} from 'react';
+
+ const Register = ()=> {
+    const [first_name, setFirstName] = useState('');
+    const [last_name, setLastName] = useState('')
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-}
-export default class Register extends Component {
-    
-    render() {
+
+    const submit = async (e) => {
+        e.preventDefault();
+
+        const response = await fetch('http://127.0.0.1:8000/api/register', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest'},
+            body: JSON.stringify({
+                first_name,
+                last_name,
+                email,
+                password,
+            }),
+        });
+        const content = await response.json();
+
+
+        // if(response.status === 422){
+        //     for (let key in content.errors) {
+        //         setError(error => [...error, content.errors[key].toString()]);
+        //     }
+        // } else {
+        //     console.log(content);
+        // }
+    }
         return (
             <div>
                 <div className='App'>
                 <main className="form-signin">
-                    <form onSubmit={}>
+                    <form onSubmit={submit}>
                         <h1 className="h3 mb-3 fw-normal">Registration</h1>
-                        <label for="inputName" class="visually-hidden">Name</label>
-                        <input type="Name" id="inputName" class="form-control" placeholder="Name" required 
-                        onChange={e => setName(e.target.value)}
+                        <label for="inputName" class="visually-hidden">First Name</label>
+                        <input type="setFirstName" id="inputName" class="form-control" placeholder="First Name" required 
+                        onChange={e => setFirstName(e.target.value)}
+                        />
+                        <label for="inputName" class="visually-hidden">Last Name</label>
+                        <input type="setLastName" id="inputName" class="form-control" placeholder="Last Name" required 
+                        onChange={e => setLastName(e.target.value)}
                         />
                         <label for="inputEmail" class="visually-hidden">Email address</label>
                         <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required
@@ -32,6 +59,6 @@ export default class Register extends Component {
             </div>
             </div>
         )
-        export default Reg;
+    
     }
-}
+    export default Register;

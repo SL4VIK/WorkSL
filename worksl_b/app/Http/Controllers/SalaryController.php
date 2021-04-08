@@ -8,6 +8,7 @@ use Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+
 class SalaryController extends Controller
 {
     public function Salary() {
@@ -21,19 +22,21 @@ class SalaryController extends Controller
         return response()->json($salary,200);
     }
     public function SalarySave(Request $req) {
-        $rules = [
-            'cost_ph' => 'required|min:1',
-            'total_hours' => 'required|min:1',
-            'salary' => 'required|min:1',
-            'month' => 'date|required|min:1',
-            'users_id' => 'required|min:1',
-        ];
-        $validator = Validator::make($req->all(), $rules);
-        if($validator->fails()){
-            return response()->json($validator->errors(), 400);
-        }
-        $salary = SalaryModel::create($req->all());
-        return response()->json($salary,201);
+        $month = date('m');
+        $user_id = Auth::user()->getAuthIdentifier();
+        $date = DB::table('worktime')
+                ->whereMonth('date', $month)
+                ->where('users_id', $user_id)
+                ->SUM('time');
+        $cost = DB::table('salary')
+                ->where('users_id', $user_id)
+                ->get();
+                $cost_ph = $cost[0]->cost_ph;
+                $sal = $cost_ph * $date/60;
+            $a = SalaryModel::find($cost[0]->salary_id);
+            $a-> total_hours = round($date/60, 3);
+            $a-> salary = round($sal, 3);
+            $a-> save();
     }
 
     public function SalaryEdit(Request $req, $salary_id) {

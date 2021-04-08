@@ -10,8 +10,16 @@ import Contacts from '../Pages/Contacts'
 import Login from './Login'
 import Register from './Register'
 
-export default class Header extends Component {
-    render() {
+ const Header =() => {
+    const Logout = async () => {
+        const response = await fetch('http://127.0.0.1:8000/api/logout', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest', },
+
+        });
+        const content = await response.json();
+        console.log(content);
+    }
         return (
             <>
             <Router>
@@ -36,6 +44,7 @@ export default class Header extends Component {
                         <Form inline>
                             <Button variant="outline-info" id='login'as={Link} to="/login">Login</Button>
                             <Button variant="outline-info" id='register'as={Link} to="/register">Register</Button>
+                            <Button variant="outline-info" id='logout'as={Link} onClick = {Logout}>Logout</Button>
                         </Form>
                     </NavbarCollapse>
                 </Container>
@@ -51,4 +60,4 @@ export default class Header extends Component {
             </>
         ) 
     }
-}
+export default Header;

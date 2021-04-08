@@ -16,7 +16,7 @@ class SalaryModel extends Model
         'cost_ph',
         'total_hours',
         'salary',
-        'month',
+        'month_s',
         'users_id',
     ];
 }

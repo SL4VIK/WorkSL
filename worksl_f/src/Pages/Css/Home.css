@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@700&display=swap');
+
+#Name{
+    font-family: 'Luckiest Guy', cursive;
+    color: red;
+    font-size: 1000%;
+    vertical-align: top;
+}
+#SideName{
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 300%;
+    color: #B22222;
+}
+#NameC{
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 600%;
+    color: red;
+}

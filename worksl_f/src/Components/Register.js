@@ -1,6 +1,10 @@
 import React, {useState} from 'react';
+import {useTranslation} from 'react-i18next';
+import {Redirect} from 'react-router-dom';
 
  const Register = ()=> {
+    const [redirect, setRedirect] = useState(false);
+    const {t, i18n} = useTranslation();
     const [first_name, setFirstName] = useState('');
     const [last_name, setLastName] = useState('')
     const [email, setEmail] = useState('');
@@ -21,39 +25,39 @@ import React, {useState} from 'react';
         });
         const content = await response.json();
 
-
-        // if(response.status === 422){
-        //     for (let key in content.errors) {
-        //         setError(error => [...error, content.errors[key].toString()]);
-        //     }
-        // } else {
-        //     console.log(content);
-        // }
+        if(response.status === 201){
+            setRedirect(true);
+        }
+        
+    }
+    if(redirect){
+        return <Redirect to='/login'/>
     }
         return (
             <div>
                 <div className='App'>
                 <main className="form-signin">
                     <form onSubmit={submit}>
-                        <h1 className="h3 mb-3 fw-normal">Registration</h1>
+                        <h1 className="h3 mb-3 fw-normal">{t("register.label")}</h1>
                         <label for="inputName" class="visually-hidden">First Name</label>
-                        <input type="setFirstName" id="inputName" class="form-control" placeholder="First Name" required 
+                        <input type="setFirstName" id="inputName" class="form-control" placeholder={t("register.name")} required 
                         onChange={e => setFirstName(e.target.value)}
                         />
                         <label for="inputName" class="visually-hidden">Last Name</label>
-                        <input type="setLastName" id="inputName" class="form-control" placeholder="Last Name" required 
+                        <input type="setLastName" id="inputName" class="form-control" placeholder={t("register.lastname")} required 
                         onChange={e => setLastName(e.target.value)}
                         />
                         <label for="inputEmail" class="visually-hidden">Email address</label>
-                        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required
+                        <input type="email" id="inputEmail" class="form-control" placeholder={t("register.email")} required
                         onChange={e => setEmail(e.target.value)}
                         />
                         <label for="inputPassword" class="visually-hidden">Password</label>
-                        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required
+                        <input type="password" id="inputPassword" class="form-control" placeholder={t("register.password")} required
                          onChange={e => setPassword(e.target.value)}
                         />
                         <br></br>
-                        <button className="w-100 btn btn-lg btn-primary" type="submit">Register</button>
+                        <button className="w-100 btn btn-lg btn-primary" type="submit">{t("register.btn")}</button>
+                        
                     </form>
                 </main>
             </div>

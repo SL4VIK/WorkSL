@@ -1,0 +1,76 @@
+{
+    "admin.user.table": "Users",
+    "admin.company.table": "Companies",
+    "admin.worktime.table": "Worktime",
+    "admin.salary.table": "Salary",
+    "admin.cabinet": "Admin cabinet",
+    "user.cabinet":"User cabinet",
+    "companyadmin.cabinet":"Company admin cabinet",
+    "home":"Home",
+    "about":"About",
+    "contacts":"Contacts",
+    "cabinet":"Cabinet",
+    "logout":"Logout",
+    "login":"Login",
+    "register":"Register",
+    "en":"en",
+    "ua":"ua",
+
+    "register.label":"Registration",
+    "register.name":"name",
+    "register.lastname":"last name",
+    "register.email":"email",
+    "register.password":"password",
+    "register.btn":"Register",
+
+    "login.label":"Login",
+    "login.btn":"Enter",
+
+    "home.first":"The company providing services for the control of workers",
+    "home.second.main":"Supervision",
+    "home.second":"The system monitors the work in real time",
+    "home.third.main":"Payment",
+    "home.third":"The system calculates wages depending on the job",
+
+    "user.me.table":"Me",
+    "user.worktime.table":"Worktime",
+    "user.salary.table":"Salary",
+
+    "company.name":"Name",
+    "company.type":"Type",
+    "company.address":"Address",
+    "company.edit":"Edit",
+    "company.add":"Add",
+
+    "edit":"Edit",
+    "remove":"Remove",
+    "addnew":"Add new",
+    "save":"Save",
+
+    "user.id":"Id",
+    "user.name":"Name",
+    "user.lastname":"Last Name",
+    "user.email":"Email",
+    "user.company":"Company",
+    "user.edit":"Edit",
+    "user.me.remove":"Remove",
+
+    "profile":"My Profile",
+    "namep":"Name",
+    "lastnamep":"Last Name",
+    "emailp":"Email",
+    "companyp":"Company",
+    "okp":"Edit",
+
+    "date":"Date",
+    "time":"Time",
+    "rest":"Rest",
+    "user":"User",
+
+    "cost":"Cost ph",
+    "hours":"Total hours",
+    "salary":"Salary",
+    "month":"Month",
+    "add":"Add"
+
+}

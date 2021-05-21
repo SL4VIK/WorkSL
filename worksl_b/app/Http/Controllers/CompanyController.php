@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\DB;
 class CompanyController extends Controller
 {
     public function Companies() {
-//        return auth::user()-> getAuthIdentifier();
         return response()->json(CompanyModel::get(),200);
     }
     public function CompanyById($company_id) {
@@ -34,26 +33,26 @@ class CompanyController extends Controller
         return response()->json($shelf,201);
     }
 
-    public function CompanyEdit(Request $req, $company_id) {
+    public function CompanyEdit(Request $request) {
         $rules = [
             'name' => 'min:1',
             'type' => 'min:1',
             'address' => 'min:1',
         ];
-        $validator = Validator::make($req->all(), $rules);
+        $validator = Validator::make($request->all(), $rules);
         if($validator->fails()){
             return response()->json($validator->errors(), 400);
         }
-        $company = CompanyModel::find($company_id);
+        $company = CompanyModel::find($request->company_id);
         if(is_null($company)){
             return response()-> json(['error' => true, 'message' => 'Not found'], 404);
         }
-        $company->update($req->all());
+        $company->update($request->all());
         return response()->json('Updated',200);
     }
 
-    public function CompanyDelete(Request $req, $company_id) {
-        $company = CompanyModel::find($company_id);
+    public function CompanyDelete(Request $request) {
+        $company = CompanyModel::find($request->company_id);
         if(is_null($company)){
             return response()-> json(['error' => true, 'message' => 'Not found'], 404);
         }

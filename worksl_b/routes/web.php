@@ -18,15 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/send-mail', function(){
-    $details = [
-        'title' =>'Its time to have rest',
-        'body' =>'You  are working to long',
-    ];
-Mail::to('termenator2001@gmail.com')->send(new \App\Mail\WorkMail($details));
-echo 'Email has been sent';
-});
+//Route::get('/send-mail', function(){echo 'Ok';});
 
-    
+
 
 

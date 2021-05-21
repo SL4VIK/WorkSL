@@ -14,12 +14,28 @@ class SalaryController extends Controller
     public function Salary() {
         return response()->json(SalaryModel::get(),200);
     }
+    public function SalaryForUser() {
+        return SalaryModel:: where('users_id', Auth::user() ->getAuthIdentifier())
+            -> get();
+    }
     public function SalaryById($salary_id) {
         $salary = SalaryModel::find($salary_id);
         if(is_null($salary)){
             return response()-> json(['error' => true, 'message' => 'Not found'], 404);
         }
         return response()->json($salary,200);
+    }
+    public function SalaryCreate(Request $req) {
+        $rules = [
+//            'cost_ph' => 'required|min:1',
+//            'users_id' => 'required|min:1',
+        ];
+        $validator = Validator::make($req->all(), $rules);
+        if($validator->fails()){
+            return response()->json($validator->errors(), 400);
+        }
+        $salary = SalaryModel::create($req->all());
+        return response()->json($salary,201);
     }
     public function SalarySave(Request $req) {
         $month = date('m');
@@ -39,7 +55,7 @@ class SalaryController extends Controller
             $a-> save();
     }
 
-    public function SalaryEdit(Request $req, $salary_id) {
+    public function SalaryEdit(Request $req) {
         $rules = [
             'cost_ph' => 'min:1',
             'total_hours' => 'min:1',
@@ -51,7 +67,7 @@ class SalaryController extends Controller
         if($validator->fails()){
             return response()->json($validator->errors(), 400);
         }
-        $salary = SalaryModel::find($salary_id);
+        $salary = SalaryModel::find($req->salary_id);
         if(is_null($salary)){
             return response()-> json(['error' => true, 'message' => 'Not found'], 404);
         }
@@ -59,8 +75,8 @@ class SalaryController extends Controller
         return response()->json('Updated',200);
     }
 
-    public function SalaryDelete(Request $req, $salary_id) {
-        $salary = SalaryModel::find($salary_id);
+    public function SalaryDelete(Request $req) {
+        $salary = SalaryModel::find($req->salary_id);
         if(is_null($salary)){
             return response()-> json(['error' => true, 'message' => 'Not found'], 404);
         }

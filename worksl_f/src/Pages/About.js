@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, {useEffect} from 'react';
 
-export default class About extends Component {
-    render() {
-        return (
-            <div>
-                About
-            </div>
-        )
-    }
+function About(){
+    return(
+        <div className="App">
+            About
+        </div>
+    )
 }
+
+export default About;

@@ -30,6 +30,7 @@ class WorkMail extends Mailable
      */
     public function build()
     {
+
         return $this->subject('Mail from work')->view('emails.WorkMail');
     }
 }

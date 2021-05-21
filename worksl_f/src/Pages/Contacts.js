@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, {useEffect} from 'react';
 
-export default class Contacts extends Component {
-    render() {
-        return (
-            <div>
-                Contacts
-            </div>
-        )
-    }
+function Contacts(){
+    return(
+        <div className="App">
+            Contacts
+        </div>
+    )
 }
+
+export default Contacts;
